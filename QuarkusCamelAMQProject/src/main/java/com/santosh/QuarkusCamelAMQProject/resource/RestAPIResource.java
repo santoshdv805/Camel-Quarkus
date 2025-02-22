@@ -1,4 +1,4 @@
-package com.santosh.QuarkusCamelRestProject.resource;
+package com.santosh.QuarkusCamelAMQProject.resource;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,6 @@ import org.apache.camel.ProducerTemplate;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -27,7 +26,7 @@ import jakarta.ws.rs.core.Response;
 public class RestAPIResource {
 	@Inject
     ProducerTemplate clientProcessingTemplate;
-	@GET
+	@POST
     @Path("")
     public Response getResponse(String apiRequest, @Context HttpHeaders httpHeaders, @Context Request request) {
         Map<String, Object> headers = new HashMap<>();

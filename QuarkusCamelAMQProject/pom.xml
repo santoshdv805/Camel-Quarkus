@@ -2,10 +2,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.santosh.QuarkusCamelRestProject</groupId>
-	<artifactId>QuarkusCamelRestProject</artifactId>
+	<groupId>com.santosh.QuarkusCamelAMQProject</groupId>
+	<artifactId>QuarkusCamelAMQProject</artifactId>
 	<version>1.0.0</version>
-	<name>QuarkusCamelRestProject</name>
+	<name>QuarkusCamelAMQProject</name>
 	<description>Quarkus Camel Basic Project</description>
 
 	<properties>
@@ -44,19 +44,19 @@
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-resteasy-reactive</artifactId>
 		</dependency>
-
-		<!--quarkus camel XML dependency-->
+		
+		<!--quarkus camel XML dependency--> 
 		<dependency>
 			<groupId>org.apache.camel.quarkus</groupId>
 			<artifactId>camel-quarkus-xml-io-dsl</artifactId>
 		</dependency>
-
+		
 		<!--camel core dependency-->
 		<dependency>
 			<groupId>org.apache.camel.quarkus</groupId>
 			<artifactId>camel-quarkus-core</artifactId>
 		</dependency>
-
+		
 		<!--camel direct component-->
 		<dependency>
 			<groupId>org.apache.camel.quarkus</groupId>
@@ -75,51 +75,6 @@
 			<artifactId>quarkus-smallrye-openapi</artifactId>
 		</dependency>
 
-		<!--microsoft SQL drive jar-->
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-jdbc-mssql</artifactId>
-		</dependency>
-
-		<!--camel SQL component-->
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-sql</artifactId>
-		</dependency>
-
-		<!--camel JDBC component-->
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-jdbc</artifactId>
-		</dependency>
-
-		<!--    active MQ-->
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-activemq</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.messaginghub</groupId>
-			<artifactId>pooled-jms</artifactId>
-			<version>3.1.4</version>
-		</dependency>
-
-		<!-- MicroProfile Fault Tolerance (Circuit Breaker) -->
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
-		</dependency>
-
-		<!-- Qharkus HTTP -->
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-http</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.camel.quarkus</groupId>
-			<artifactId>camel-quarkus-mock</artifactId>
-		</dependency>
 
 	</dependencies>
 	<build>

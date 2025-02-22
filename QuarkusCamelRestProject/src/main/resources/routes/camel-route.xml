@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<routes xmlns="http://camel.apache.org/schema/spring"
+<routes xmlns="http://camel.apache.org/schema/spring"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd"
 	id="Ctx__DMSExceptionList">
 	<route id="test" streamCache="true">
-			<from uri="direct:camel-quarkus-rest"/>	
-				<log message="REQUEST RECEIVE FROM USER_${body} "  loggingLevel="INFO"/>
+		<!--			direct comoponent for entry point in camel -->
+		<from uri="direct:camel-quarkus-rest" />
+		<log message="Request RECEIVE FROM USER_${body} " loggingLevel="INFO" />
+		<to uri="direct:start"/>
+<!--		<setBody><simple>hello</simple></setBody>-->
+<!--		<to uri="direct:AMQRoute"/>-->
+		
+		
+
+		
+	</route>
+	
+	<route id="JDBCComponentCall">
+		<from uri="direct:JDBCComponentRoute" />
+		<!-- 				call DB using JDBC component -->
+		<setBody>
+			<simple>select top 1 * from TransactionsResponse</simple>
+		</setBody>
+		<log message="Request send to DB using JDBC component"
+			loggingLevel="INFO" />
+		<to uri="jdbc:esbDataSource" />
+		<log message="Response RECEIVE FROM DB using JDBC component_${body} "
+			loggingLevel="INFO" />
+	</route>
+	
+	<route id="SQLComponentCall">
+		<from uri="direct:SQLComponentRoute" />
+		<!--			SQL component for querying DB-->
+		<log message="Request send to DB using SQL component"
+			loggingLevel="INFO" />
+		<to uri="sql:select top 1 * from TransactionsResponse" />
+		<log message="Response RECEIVE FROM DB using SQL component_${body} "
+			loggingLevel="INFO" />
+	</route>
+	
+	<route id="AMQCall">
+		<from uri="direct:AMQRoute" />
+		<!-- 				call active MQ bean  -->
+		<log message="Request send to activeMQ_${body}"	loggingLevel="INFO" />
+		<to pattern="InOut" uri="activemq:queue:TestQueue" />
+		<log message="Response received from activeMQ_${body}"	loggingLevel="INFO" />
+	</route>
+	
+	
+	<route id="circuitBreakerExample">
+        <from uri="direct:start"/>
+        <circuitBreaker>
+<!--           	 <resilience4jConfiguration-->
+<!--           	 timeoutEnabled="true"-->
+<!--           	 timeoutDuration="1000"/>-->
+			<faultToleranceConfiguration timeoutEnabled="true" timeoutDuration="1000"/>
+            <!-- Primary route -->
+            <to uri="{{Quarkus_Test_HTTP_URL}}"/>
+
+            <!-- Fallback (if circuit breaker opens) -->
+            <onFallback>
+                <log message="Circuit Breaker Activated! Redirecting to fallback..."/>
+                <to uri="mock:fallback"/>
+            </onFallback>
+
+        </circuitBreaker>
     </route>
+	
 </routes>
